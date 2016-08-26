@@ -589,10 +589,11 @@ public class ThrowablesTest extends TestCase {
 
     StackTraceException e = new StackTraceException("my message");
 
+    String newline = "(\r\n|\n|\r)";
     String firstLine = quote(e.getClass().getName() + ": " + e.getMessage());
     String secondLine = "\\s*at " + ThrowablesTest.class.getName() + "\\..*";
-    String moreLines = "(?:.*\n?)*";
-    String expected = firstLine + "\n" + secondLine + "\n" + moreLines;
+    String moreLines = "(?:.*" + newline + "?)*";
+    String expected = firstLine + newline + secondLine + newline + moreLines;
     assertThat(getStackTraceAsString(e)).matches(expected);
   }
 
